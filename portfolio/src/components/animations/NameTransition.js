@@ -4,7 +4,19 @@ import React, { useEffect, useState } from 'react';
 const NameTransition = ({ userName = "NAMA ANDA" }) => {
   const { scrollY } = useScroll();
   const [targetPosition, setTargetPosition] = useState({ x: 0, y: 0 });
+  const [isMobile, setIsMobile] = useState(false);
   
+  // Detect mobile and update responsive settings
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 500);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   // Get target position once header is rendered
   useEffect(() => {
     const getResponsiveX = () => {
@@ -40,8 +52,8 @@ const NameTransition = ({ userName = "NAMA ANDA" }) => {
   const nameY = useTransform(progress, [0, 1], [0, targetPosition.y - window.innerHeight / 2]);
   
   // Scale and size transforms
-  const nameScale = useTransform(progress, [0, 1], [1, 0.3]);
-  const nameFontSize = useTransform(progress, [0, 1], [1, 0.25]);
+  const nameScale = useTransform(progress, [0, 1], [1, isMobile ? 0.25 : 0.3]);
+  const nameFontSize = useTransform(progress, [0, 1], [1, isMobile ? 0.2 : 0.25]);
   
   // Color transition
   const nameColor = useTransform(
@@ -58,6 +70,14 @@ const NameTransition = ({ userName = "NAMA ANDA" }) => {
   const firstName = nameParts[0] || '';
   const lastName = nameParts[1] || '';
   
+  // Responsive font size calculation
+  const getResponsiveFontSize = () => {
+    if (isMobile) {
+      return "clamp(2.5rem, 12vw, 4rem)";
+    }
+    return "clamp(4rem, 8vw, 6rem)";
+  };
+    
   return (
     <motion.div
       className="fixed inset-0 flex items-center justify-center pointer-events-none mb-12"
@@ -71,7 +91,7 @@ const NameTransition = ({ userName = "NAMA ANDA" }) => {
       <motion.h1 
         className="font-bold text-center font-mono whitespace-nowrap"
         style={{ 
-          fontSize: useTransform(nameFontSize, [1, 0.25], ["clamp(4rem, 8vw, 6rem)", "5rem"]),
+          fontSize: useTransform(nameFontSize, [1, isMobile ? 0.2 : 0.25], [getResponsiveFontSize(), "5rem"]),
           color: nameColor
         }}
       >
