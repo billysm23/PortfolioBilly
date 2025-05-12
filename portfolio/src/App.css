@@ -1,38 +1,118 @@
-.App {
-  text-align: center;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+::-webkit-scrollbar-thumb {
+  background: #7000ff;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00ffaa;
+}
+
+/* Global */
+body {
+  margin: 0;
+  font-family: 'Space Grotesk', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #0a0a0a;
+  color: #ffffff;
+  overflow-x: hidden;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Text Selection */
+::selection {
+  background-color: #7000ff;
+  color: #ffffff;
+}
+
+/* Glass Effect */
+.glass {
+  background: rgba(10, 10, 10, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Custom Animation */
+.hover-glow:hover {
+  box-shadow: 0 0 15px #00ffaa, 0 0 30px rgba(112, 0, 255, 0.5);
+  transition: box-shadow 0.3s ease;
+}
+
+/* Custom Gradient Text */
+.gradient-text {
+  background: linear-gradient(90deg, #7000ff, #00ffaa);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Neon Border Effect */
+.neon-border {
+  position: relative;
+}
+
+.neon-border::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #7000ff, #00ffaa, #7000ff);
+  z-index: -1;
+  border-radius: inherit;
+  animation: border-glow 3s linear infinite;
+}
+
+@keyframes border-glow {
+  0% {
+    filter: blur(5px);
+  }
+  50% {
+    filter: blur(10px);
+  }
+  100% {
+    filter: blur(5px);
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* 3D Text Effect */
+.text-3d {
+  text-shadow: 0 1px 0 #ccc,
+               0 2px 0 #c9c9c9,
+               0 3px 0 #bbb,
+               0 4px 0 #b9b9b9,
+               0 5px 0 #aaa,
+               0 6px 1px rgba(0,0,0,.1),
+               0 0 5px rgba(0,0,0,.1),
+               0 1px 3px rgba(0,0,0,.3),
+               0 3px 5px rgba(0,0,0,.2),
+               0 5px 10px rgba(0,0,0,.25),
+               0 10px 10px rgba(0,0,0,.2),
+               0 20px 20px rgba(0,0,0,.15);
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Grid Background */
+.grid-bg {
+  background-image: 
+    linear-gradient(rgba(112, 0, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(112, 0, 255, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
 }
