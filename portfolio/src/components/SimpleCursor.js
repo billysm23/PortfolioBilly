@@ -2,63 +2,88 @@ import { AnimatePresence, motion } from 'framer-motion';
 import React, { useEffect, useState } from 'react';
 
 const SimpleCursor = () => {
+  const [isMobile, setIsMobile] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isActive, setIsActive] = useState(false);
   const [isClicking, setIsClicking] = useState(false);
   const [trailPositions, setTrailPositions] = useState([]);
   
   useEffect(() => {
-    // Hide default cursor
-    document.body.style.cursor = 'none';
-    
-    const updatePosition = (e) => {
-      setPosition({ x: e.clientX, y: e.clientY });
+    const checkDevice = () => {
+      const mobile = window.innerWidth <= 768;
+      setIsMobile(mobile);
       
-      // Update trail
-      setTrailPositions(prev => [
-        { x: e.clientX, y: e.clientY, id: Date.now() },
-        ...prev.slice(0, 5)
-      ]);
-    };
-    
-    const handleMouseDown = () => setIsClicking(true);
-    const handleMouseUp = () => setIsClicking(false);
-    
-    // Simple hover detection using querySelectorAll
-    const handleMouseMove = (e) => {
-      updatePosition(e);
-      
-      // Check if cursor is over interactive elements
-      const interactiveElements = document.querySelectorAll('button, a, input, textarea, .cursor-hover');
-      let isOverInteractive = false;
-      
-      for (let element of interactiveElements) {
-        const rect = element.getBoundingClientRect();
-        if (
-          e.clientX >= rect.left &&
-          e.clientX <= rect.right &&
-          e.clientY >= rect.top &&
-          e.clientY <= rect.bottom
-        ) {
-          isOverInteractive = true;
-          break;
-        }
+      // Restore default cursor on mobile
+      if (mobile) {
+        document.body.style.cursor = 'auto';
+      } else {
+        document.body.style.cursor = 'none';
       }
-      
-      setIsActive(isOverInteractive);
     };
     
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mousedown', handleMouseDown);
-    window.addEventListener('mouseup', handleMouseUp);
+    checkDevice();
+    window.addEventListener('resize', checkDevice);
     
     return () => {
-      document.body.style.cursor = 'auto';
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mousedown', handleMouseDown);
-      window.removeEventListener('mouseup', handleMouseUp);
+      window.removeEventListener('resize', checkDevice);
+      document.body.style.cursor = 'auto'; // Reset on unmount
     };
   }, []);
+
+  useEffect(() => {
+    if (!isMobile) {  
+      // Hide default cursor
+      document.body.style.cursor = 'none';
+      
+      const updatePosition = (e) => {
+        setPosition({ x: e.clientX, y: e.clientY });
+        
+        // Update trail
+        setTrailPositions(prev => [
+          { x: e.clientX, y: e.clientY, id: Date.now() },
+          ...prev.slice(0, 5)
+        ]);
+      };
+      
+      const handleMouseDown = () => setIsClicking(true);
+      const handleMouseUp = () => setIsClicking(false);
+      
+      // Simple hover detection using querySelectorAll
+      const handleMouseMove = (e) => {
+        updatePosition(e);
+        
+        // Check if cursor is over interactive elements
+        const interactiveElements = document.querySelectorAll('button, a, input, textarea, .cursor-hover');
+        let isOverInteractive = false;
+        
+        for (let element of interactiveElements) {
+          const rect = element.getBoundingClientRect();
+          if (
+            e.clientX >= rect.left &&
+            e.clientX <= rect.right &&
+            e.clientY >= rect.top &&
+            e.clientY <= rect.bottom
+          ) {
+            isOverInteractive = true;
+            break;
+          }
+        }
+        
+        setIsActive(isOverInteractive);
+      };
+      
+      window.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('mousedown', handleMouseDown);
+      window.addEventListener('mouseup', handleMouseUp);
+      
+      return () => {
+        document.body.style.cursor = 'auto';
+        window.removeEventListener('mousemove', handleMouseMove);
+        window.removeEventListener('mousedown', handleMouseDown);
+        window.removeEventListener('mouseup', handleMouseUp);
+      };
+    }
+  }, [isMobile]);
   
   return (
     <>
