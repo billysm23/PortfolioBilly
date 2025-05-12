@@ -3,31 +3,17 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import { About, Contact } from './components/AboutContact';
 import Footer from './components/Footer';
-import EnhancedPortfolioLanding from './components/NewLanding';
-import './parallax.css';
+import PortfolioLanding from './components/PortfolioLanding';
 
 function App() {
   const [loading, setLoading] = useState(true);
-  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // Check if mobile device
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    
-    // Simulate loading
     const timer = setTimeout(() => {
       setLoading(false);
     }, 2000);
 
-    return () => {
-      clearTimeout(timer);
-      window.removeEventListener('resize', checkMobile);
-    };
+    return () => clearTimeout(timer);
   }, []);
 
   // Preload fonts
@@ -42,32 +28,17 @@ function App() {
     };
   }, []);
 
-  // Prevent overscroll on mobile
-  useEffect(() => {
-    const preventOverscroll = (e) => {
-      if (e.touches.length > 1) {
-        e.preventDefault();
-      }
-    };
-
-    document.addEventListener('touchmove', preventOverscroll, { passive: false });
-    
-    return () => {
-      document.removeEventListener('touchmove', preventOverscroll);
-    };
-  }, []);
-
   return (
-    <div className="App parallax-container">
+    <div className="App">
       <AnimatePresence>
         {loading ? (
-          // Enhanced Loader
+          // Loader
           <motion.div
             key="loader"
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
-            className="fixed inset-0 flex flex-col items-center justify-center bg-dark z-50"
+            className="fixed inset-0 flex items-center justify-center bg-dark z-50"
           >
             <motion.div
               animate={{
@@ -85,41 +56,22 @@ function App() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
-              className="mt-8 font-mono text-accent"
+              className="absolute mt-24 font-mono text-accent"
             >
-              <motion.div
-                animate={{ opacity: [0, 1, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-              >
-                Loading Portfolio...
-              </motion.div>
+              Loading...
             </motion.div>
-            <motion.div
-              initial={{ width: 0 }}
-              animate={{ width: '200px' }}
-              transition={{ duration: 2, ease: "easeInOut" }}
-              className="mt-4 h-1 bg-gradient-to-r from-secondary to-accent rounded-full"
-            />
           </motion.div>
         ) : (
-          // Main Content with Fixed Parallax
+          // Main Content
           <motion.div
             key="content"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            className="content-wrapper"
+            className="relative"
           >
-            {/* Enhanced Landing Page dengan Parallax */}
-            <EnhancedPortfolioLanding />
-            
-            {/* About Section */}
+            <PortfolioLanding />
             <About />
-            
-            {/* Contact Section */}
             <Contact />
-            
-            {/* Footer */}
             <Footer />
           </motion.div>
         )}
