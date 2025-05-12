@@ -2,8 +2,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { Contact } from './components/AboutContact';
-import FinalNameHeaderLanding from './components/FinalNameHeaderLanding';
 import Footer from './components/Footer';
+import NameHeaderLanding from './components/pages/NameHeaderLanding';
 import './parallax.css';
 
 function App() {
@@ -124,7 +124,7 @@ function App() {
             />
           </motion.div>
         ) : (
-          // Main Content dengan Final name transition
+          // Main Content dengan  name transition
           <motion.div
             key="content"
             initial={{ opacity: 0 }}
@@ -132,8 +132,8 @@ function App() {
             transition={{ duration: 0.5 }}
             className="content-wrapper"
           >
-            {/* Final Name Header Landing Page */}
-            <FinalNameHeaderLanding userName={userName} />
+            {/*  Name Header Landing Page */}
+            <NameHeaderLanding userName={userName} />
             
             {/* Contact  dengan scroll animations */}
             <motion.div
