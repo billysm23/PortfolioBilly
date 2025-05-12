@@ -139,7 +139,7 @@ function App() {
             className="content-wrapper"
           >
             {/* Lazy Load Main Portfolio Section */}
-            <Suspense fallback={<div className="h-screen bg-dark flex items-center justify-center"><span className="text-accent">Loading Portfolio...</span></div>}>
+            <Suspense fallback={<div className="h-screen bg-dark flex items-center justify-center"><span className="text-accent"></span></div>}>
               <NameHeaderLanding userName={userName} />
             </Suspense>
             

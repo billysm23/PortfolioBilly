@@ -1,11 +1,23 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import FloatingElements from '../animations/FloatingElements';
 import ParallaxBackground from '../animations/ParallaxBackground';
-import ThreeDScene from '../features/3D/ThreeDScene';
+import { ThreeSceneLoading } from '../ui/LoadingFallback';
+
+// Lazy load Three.js scene
+const LazyThreeScene = React.lazy(() => import('../features/3D/ThreeDScene'));
 
 const Hero = ({ userName, isLoaded }) => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [shouldLoadThree, setShouldLoadThree] = useState(false);
+  
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShouldLoadThree(true);
+    }, 100);
+    
+    return () => clearTimeout(timer);
+  }, []);
   
   // Extract mouse tracking logic
   useEffect(() => {
@@ -27,7 +39,15 @@ const Hero = ({ userName, isLoaded }) => {
     <section className="relative h-screen w-full flex items-center justify-center overflow-hidden">
       <ParallaxBackground />
       <FloatingElements />
-      <ThreeDScene />
+      
+      {/* Lazy Load 3D Scene */}
+      {shouldLoadThree ? (
+        <Suspense fallback={<ThreeSceneLoading />}>
+          <LazyThreeScene />
+        </Suspense>
+      ) : (
+        <ThreeSceneLoading />
+      )}
       
       <motion.div 
         className="z-10 text-center px-4 relative mt-20"

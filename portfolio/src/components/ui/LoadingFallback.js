@@ -34,7 +34,6 @@ export const ThreeSceneLoading = () => (
         animate={{ opacity: [0, 1, 0] }}
         transition={{ duration: 1.5, repeat: Infinity }}
       >
-        Loading 3D Scene...
       </motion.div>
     </div>
   </div>
