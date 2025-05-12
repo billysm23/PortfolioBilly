@@ -1,15 +1,27 @@
 import { motion } from 'framer-motion';
-import React, { useEffect, useState } from 'react';
-
+import React, { Suspense, useEffect, useState } from 'react';
 import NameTransition from '../animations/NameTransition';
 import ParallaxBackground from '../animations/ParallaxBackground';
-import { EnhancedAboutSection } from '../animations/ScrollAnimations';
-import SimpleCursor from '../features/Cursor/SimpleCursor';
 import Header from '../layout/Header';
 import Hero from '../sections/Hero';
-import Projects from '../sections/Projects';
 
-const NameHeaderLanding = ({ userName = "NAMA ANDA" }) => {
+// Lazy imports for non-critical components
+import LazyWrapper from '../ui/LazyWrapper';
+import {
+  AboutLoading,
+  ProjectsLoading
+} from '../ui/LoadingFallback';
+
+// Lazy components
+const LazySimpleCursor = React.lazy(() => import('../features/Cursor/SimpleCursor'));
+const LazyProjects = React.lazy(() => import('../sections/Projects'));
+const LazyEnhancedAboutSection = React.lazy(() => 
+  import('../animations/ScrollAnimations').then(module => ({
+    default: module.EnhancedAboutSection
+  }))
+);
+
+const FinalNameHeaderLanding = ({ userName = "NAMA ANDA" }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [showCursor, setShowCursor] = useState(false);
   
@@ -43,28 +55,37 @@ const NameHeaderLanding = ({ userName = "NAMA ANDA" }) => {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      {/* Custom Cursor */}
-      {showCursor && <SimpleCursor />}
+      {/* Lazy Load Custom Cursor */}
+      {showCursor && (
+        <Suspense fallback={null}>
+          <LazySimpleCursor />
+        </Suspense>
+      )}
       
-      {/* Header dengan Logo Target (z-40) */}
       <Header userName={userName} />
-      
-      {/* Nama yang Bertransition (z-40 to z-50) */}
       <NameTransition userName={userName} />
-      
-      {/* Parallax Background */}
       <ParallaxBackground />
-
-      {/* Hero Section with 3D */}
       <Hero userName={userName} isLoaded={isLoaded} />
 
-      {/* Projects Section */}
-      <Projects />
+      {/* Lazy Load Projects Section */}
+      <LazyWrapper 
+        fallback={<ProjectsLoading />}
+        threshold={0.1}
+        rootMargin="300px"
+      >
+        <LazyProjects />
+      </LazyWrapper>
       
-      {/* About Section */}
-      <EnhancedAboutSection />
+      {/* Lazy Load About Section */}
+      <LazyWrapper 
+        fallback={<AboutLoading />}
+        threshold={0.1}
+        rootMargin="300px"
+      >
+        <LazyEnhancedAboutSection />
+      </LazyWrapper>
     </motion.div>
   );
 };
 
-export default NameHeaderLanding;
+export default FinalNameHeaderLanding;

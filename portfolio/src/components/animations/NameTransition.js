@@ -51,7 +51,7 @@ const NameTransition = ({ userName = "NAMA ANDA" }) => {
   );
   
   // Z-index transition - naik saat mendekati header
-  const zIndex = useTransform(progress, [0.8, 1], [40, 50]);
+  const zIndex = useTransform(progress, [0.8, 1], [40, 41]);
   
   // Format name
   const nameParts = userName.split(' ');

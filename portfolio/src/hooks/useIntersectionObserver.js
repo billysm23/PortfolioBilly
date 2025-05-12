@@ -17,6 +17,7 @@ export const useIntersectionObserver = (options = {}) => {
       },
       {
         threshold: 0.1,
+        rootMargin: '100px',
         ...options
       }
     );
@@ -32,4 +33,31 @@ export const useIntersectionObserver = (options = {}) => {
   }, [hasIntersected, options]);
 
   return { elementRef, isIntersecting, hasIntersected };
+};
+
+// Hook for lazy loading components
+export const useLazyLoad = (threshold = 0.1, rootMargin = '100px') => {
+  const [shouldLoad, setShouldLoad] = useState(false);
+  const elementRef = useRef(null);
+
+  useEffect(() => {
+    if (!elementRef.current) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !shouldLoad) {
+          setShouldLoad(true);
+          observer.disconnect();
+        }
+      },
+      { threshold, rootMargin }
+    );
+
+    const currentElement = elementRef.current;
+    observer.observe(currentElement);
+
+    return () => observer.disconnect();
+  }, [shouldLoad, threshold, rootMargin]);
+
+  return { elementRef, shouldLoad };
 };

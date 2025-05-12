@@ -1,10 +1,16 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import './App.css';
-import { Contact } from './components/AboutContact';
 import Footer from './components/Footer';
-import NameHeaderLanding from './components/pages/NameHeaderLanding';
+import LazyWrapper from './components/ui/LazyWrapper';
+import { ContactLoading } from './components/ui/LoadingFallback';
 import './parallax.css';
+
+// Lazy imports
+const NameHeaderLanding = React.lazy(() => import('./components/pages/NameHeaderLanding'));
+const Contact = React.lazy(() => import('./components/AboutContact').then(module => ({
+  default: module.Contact
+})));
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -124,7 +130,7 @@ function App() {
             />
           </motion.div>
         ) : (
-          // Main Content dengan  name transition
+          // Main Content with Lazy Loading
           <motion.div
             key="content"
             initial={{ opacity: 0 }}
@@ -132,20 +138,28 @@ function App() {
             transition={{ duration: 0.5 }}
             className="content-wrapper"
           >
-            {/*  Name Header Landing Page */}
-            <NameHeaderLanding userName={userName} />
+            {/* Lazy Load Main Portfolio Section */}
+            <Suspense fallback={<div className="h-screen bg-dark flex items-center justify-center"><span className="text-accent">Loading Portfolio...</span></div>}>
+              <NameHeaderLanding userName={userName} />
+            </Suspense>
             
-            {/* Contact  dengan scroll animations */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, threshold: 0.1 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
+            {/* Lazy Load Contact Section */}
+            <LazyWrapper 
+              fallback={<ContactLoading />}
+              threshold={0.1}
+              rootMargin="200px"
             >
-              <Contact />
-            </motion.div>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, threshold: 0.1 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+              >
+                <Contact />
+              </motion.div>
+            </LazyWrapper>
             
-            {/* Footer dengan fade in animation */}
+            {/* Footer with fade in animation */}
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
