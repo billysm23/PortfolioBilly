@@ -21,7 +21,7 @@ const LazyEnhancedAboutSection = React.lazy(() =>
   }))
 );
 
-const FinalNameHeaderLanding = ({ userName = "NAMA ANDA" }) => {
+const FinalNameHeaderLanding = ({ userName }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [showCursor, setShowCursor] = useState(false);
   
