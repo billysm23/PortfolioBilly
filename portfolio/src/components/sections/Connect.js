@@ -1,8 +1,10 @@
+import emailjs from '@emailjs/browser';
 import { motion } from 'framer-motion';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { contactInfo } from '../../data/contact';
 
 const Connect = () => {
+  const form = useRef();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -10,24 +12,135 @@ const Connect = () => {
     message: ''
   });
   
+  const [formErrors, setFormErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState('');
+  const [lastSubmissionTime, setLastSubmissionTime] = useState(0);
+
+  // Validate email format
+  const validateEmail = (email) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  };
+
+  // Validate form data
+  const validateForm = () => {
+    const errors = {};
+    
+    if (!formData.name.trim()) {
+      errors.name = 'Name is required';
+    }
+    
+    if (!formData.email.trim()) {
+      errors.email = 'Email is required';
+    } else if (!validateEmail(formData.email)) {
+      errors.email = 'Please enter a valid email address';
+    }
+    
+    if (!formData.subject) {
+      errors.subject = 'Please select a project type';
+    }
+    
+    if (!formData.message.trim()) {
+      errors.message = 'Message is required';
+    } else if (formData.message.trim().length < 10) {
+      errors.message = 'Message must be at least 10 characters long';
+    }
+    
+    return errors;
+  };
+  
   const handleInputChange = (field, value) => {
     setFormData({
       ...formData,
       [field]: value
     });
+    
+    // Clear error when user starts typing
+    if (formErrors[field]) {
+      setFormErrors({
+        ...formErrors,
+        [field]: ''
+      });
+    }
   };
   
-  const handleSubmit = () => {
-    console.log('Form submitted:', formData);
-    setFormData({ name: '', email: '', subject: '', message: '' });
-    alert('Message sent successfully!');
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    // Prevent double submit with rate limiting
+    const currentTime = Date.now();
+    if (currentTime - lastSubmissionTime < 3000) { // 3 second cooldown
+      console.log('Submission blocked - too soon after last attempt');
+      return;
+    }
+    
+    // Check if already submitting
+    if (isSubmitting) {
+      console.log('Submission blocked - already submitting');
+      return;
+    }
+    
+    // Validate form
+    const errors = validateForm();
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      return;
+    }
+    
+    setIsSubmitting(true);
+    setSubmitStatus('');
+    setLastSubmissionTime(currentTime);
+    
+    try {
+      const serviceId = 'service_o61ugfe';
+      const templateId = 'template_knqe6fn';
+      const publicKey = 'xFz2l9hcqN9ZULH2w';
+      
+      // Create unique identifier to prevent duplicates
+      const submissionId = `${currentTime}-${Math.random().toString(36).substr(2, 9)}`;
+      
+      // Email template params
+      const templateParams = {
+        user_name: formData.name,
+        user_email: formData.email,
+        subject: formData.subject,
+        user_message: formData.message,
+        to_email: contactInfo.email,
+        reply_to: formData.email,
+        submission_id: submissionId,
+        timestamp: new Date().toISOString()
+      };
+      
+      // Debug logging
+      console.log('Sending email with params:', templateParams);
+      
+      // Send email using EmailJS
+      const result = await emailjs.send(
+        serviceId,
+        templateId,
+        templateParams,
+        publicKey
+      );
+      
+      console.log('Email sent successfully:', result);
+      
+      // Success
+      setSubmitStatus('success');
+      setFormData({ name: '', email: '', subject: '', message: '' });
+      
+      // Auto-hide success message after 5 seconds
+      setTimeout(() => {
+        setSubmitStatus('');
+      }, 5000);
+      
+    } catch (error) {
+      console.error('EmailJS Error:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
-  
-  const contactItems = [
-    { icon: '✉️', title: 'Email', value: contactInfo.email },
-    { icon: '📱', title: 'Phone', value: contactInfo.phone },
-    { icon: '📍', title: 'Location', value: contactInfo.location }
-  ];
   
   const socialPlatforms = [
     { name: 'Twitter', url: contactInfo.socialLinks.twitter, initial: 'T' },
@@ -135,64 +248,134 @@ const Connect = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <h3 className="text-2xl font-bold mb-6 text-white">Start a Project</h3>
-            <div className="space-y-6">
+            
+            {/* Success/Error Messages */}
+            {submitStatus === 'success' && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mb-6 p-4 bg-green-900 bg-opacity-50 border border-green-500 rounded-lg"
+              >
+                <div className="flex items-center">
+                  <svg className="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
+                  </svg>
+                  <span className="text-green-500 font-medium">Message sent successfully!</span>
+                </div>
+                <p className="text-green-400 text-sm mt-1">I'll get back to you within 24 hours.</p>
+              </motion.div>
+            )}
+            
+            {submitStatus === 'error' && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mb-6 p-4 bg-red-900 bg-opacity-50 border border-red-500 rounded-lg"
+              >
+                <div className="flex items-center">
+                  <svg className="w-5 h-5 text-red-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd"/>
+                  </svg>
+                  <span className="text-red-500 font-medium">Failed to send message</span>
+                </div>
+                <p className="text-red-400 text-sm mt-1">Please try again or contact me directly via email.</p>
+              </motion.div>
+            )}
+            
+            <form ref={form} onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-accent mb-2 text-sm">Your Name</label>
+                  <label className="block text-accent mb-2 text-sm">Your Name *</label>
                   <input 
                     type="text" 
+                    name="name"
                     value={formData.name}
                     onChange={(e) => handleInputChange('name', e.target.value)}
-                    className="w-full px-4 py-3 bg-black bg-opacity-50 border border-accent border-opacity-30 rounded-lg text-white focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent" 
+                    className={`w-full px-4 py-3 bg-black bg-opacity-50 border rounded-lg text-white focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent transition-colors ${
+                      formErrors.name ? 'border-red-500' : 'border-accent border-opacity-30'
+                    }`}
+                    placeholder="Your full name"
                   />
+                  {formErrors.name && <p className="text-red-500 text-xs mt-1">{formErrors.name}</p>}
                 </div>
                 <div>
-                  <label className="block text-accent mb-2 text-sm">Your Email</label>
+                  <label className="block text-accent mb-2 text-sm">Your Email *</label>
                   <input 
                     type="email" 
+                    name="email"
                     value={formData.email}
                     onChange={(e) => handleInputChange('email', e.target.value)}
-                    className="w-full px-4 py-3 bg-black bg-opacity-50 border border-accent border-opacity-30 rounded-lg text-white focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent" 
+                    className={`w-full px-4 py-3 bg-black bg-opacity-50 border rounded-lg text-white focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent transition-colors ${
+                      formErrors.email ? 'border-red-500' : 'border-accent border-opacity-30'
+                    }`}
+                    placeholder="your.email@example.com"
                   />
+                  {formErrors.email && <p className="text-red-500 text-xs mt-1">{formErrors.email}</p>}
                 </div>
               </div>
               
               <div>
-                <label className="block text-accent mb-2 text-sm">Project Type</label>
+                <label className="block text-accent mb-2 text-sm">Project Type *</label>
                 <select 
+                  name="subject"
                   value={formData.subject}
                   onChange={(e) => handleInputChange('subject', e.target.value)}
-                  className="w-full px-4 py-3 bg-black bg-opacity-50 border border-accent border-opacity-30 rounded-lg text-white focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+                  className={`w-full px-4 py-3 bg-black bg-opacity-50 border rounded-lg text-white focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent transition-colors ${
+                    formErrors.subject ? 'border-red-500' : 'border-accent border-opacity-30'
+                  }`}
                 >
                   <option value="">Select a project type</option>
                   <option value="web-development">Web Development</option>
                   <option value="mobile-app">Mobile App</option>
                   <option value="ui-ux-design">UI/UX Design</option>
+                  <option value="data-visualization">Data Visualization</option>
                   <option value="consultation">Consultation</option>
                   <option value="other">Other</option>
                 </select>
+                {formErrors.subject && <p className="text-red-500 text-xs mt-1">{formErrors.subject}</p>}
               </div>
               
               <div>
-                <label className="block text-accent mb-2 text-sm">Project Description</label>
+                <label className="block text-accent mb-2 text-sm">Project Description *</label>
                 <textarea 
                   rows="6" 
+                  name="message"
                   value={formData.message}
                   onChange={(e) => handleInputChange('message', e.target.value)}
-                  className="w-full px-4 py-3 bg-black bg-opacity-50 border border-accent border-opacity-30 rounded-lg text-white focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent resize-none" 
+                  className={`w-full px-4 py-3 bg-black bg-opacity-50 border rounded-lg text-white focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent resize-none transition-colors ${
+                    formErrors.message ? 'border-red-500' : 'border-accent border-opacity-30'
+                  }`}
                   placeholder="Tell me about your project, goals, and timeline..."
                 />
+                {formErrors.message && <p className="text-red-500 text-xs mt-1">{formErrors.message}</p>}
               </div>
               
               <motion.button 
-                onClick={handleSubmit}
-                className="w-full py-4 bg-gradient-to-r from-secondary to-accent text-white font-medium rounded-lg hover:opacity-90 transition-opacity"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                type="submit"
+                disabled={isSubmitting}
+                className={`w-full py-4 font-medium rounded-lg transition-all ${
+                  isSubmitting 
+                    ? 'bg-gray-600 cursor-not-allowed opacity-50' 
+                    : 'bg-gradient-to-r from-secondary to-accent hover:opacity-90'
+                } text-white`}
+                whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+                whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
+                // Prevent double click during submission
+                onClick={isSubmitting ? (e) => e.preventDefault() : undefined}
               >
-                Send Message
+                {isSubmitting ? (
+                  <div className="flex items-center justify-center">
+                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Sending...
+                  </div>
+                ) : (
+                  'Send Message'
+                )}
               </motion.button>
-            </div>
+            </form>
           </motion.div>
         </div>
       </div>
