@@ -4,8 +4,8 @@ export const contactInfo = {
   location: 'Bandung, Indonesia',
   socialLinks: {
     github: 'https://github.com/billysm23',
-    linkedin: 'https://linkedin.com/in/billysm23',
-    twitter: 'https://twitter.com/billysm23',
+    linkedin: 'https://linkedin.com/in/billy-samuel-9ab09b2bb',
+    twitter: 'https://twitter.com/',
     instagram: 'https://instagram.com/billysm23'
   }
 };

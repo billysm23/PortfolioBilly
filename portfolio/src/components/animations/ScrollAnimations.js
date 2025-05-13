@@ -254,34 +254,36 @@ const EnhancedAboutSection = () => {
                   >
                     <StaggeredContainer staggerDelay={0.1}>
                       {experience.map((job, index) => (
-                        <motion.div 
-                          key={job.id}
-                          className="relative pl-8 border-l border-accent"
-                          initial={{ opacity: 0, y: 10 }}
-                          whileInView={{ opacity: 1, y: 0 }}
-                          viewport={{ once: true }}
-                          transition={{ delay: index * 0.1 }}
-                        >
-                          <div className="absolute left-[-5px] top-0 w-2 h-2 rounded-full bg-accent" />
-                          <h4 className="text-white font-medium">{job.role}</h4>
-                          <p className="text-accent text-sm">{job.company}</p>
-                          <p className="text-gray-400 text-xs">{job.period}</p>
-                          {job.description && (
-                            <p className="text-gray-300 text-sm mt-2">{job.description}</p>
-                          )}
-                          {job.technologies && (
-                            <div className="flex flex-wrap gap-1 mt-2">
-                              {job.technologies.map((tech, techIndex) => (
-                                <span 
-                                  key={techIndex}
-                                  className="px-2 py-1 bg-accent bg-opacity-20 text-accent text-xs rounded"
-                                >
-                                  {tech}
-                                </span>
-                              ))}
-                            </div>
-                          )}
-                        </motion.div>
+                        <div key={index} className="mb-4">
+                          <motion.div 
+                            key={job.id}
+                            className="relative pl-8 border-l border-accent"
+                            initial={{ opacity: 0, y: 10 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: index * 0.1 }}
+                          >
+                            <div className="absolute left-[-5px] top-0 w-2 h-2 rounded-full bg-accent" />
+                            <h4 className="text-white font-medium">{job.role}</h4>
+                            <p className="text-accent text-sm">{job.company}</p>
+                            <p className="text-gray-400 text-xs">{job.period}</p>
+                            {job.description && (
+                              <p className="text-gray-300 text-sm mt-2">{job.description}</p>
+                            )}
+                            {job.technologies && (
+                              <div className="flex flex-wrap gap-1 mt-2">
+                                {job.technologies.map((tech, techIndex) => (
+                                  <span 
+                                    key={techIndex}
+                                    className="px-2 py-1 bg-accent bg-opacity-20 text-accent text-xs rounded"
+                                  >
+                                    {tech}
+                                  </span>
+                                ))}
+                              </div>
+                            )}
+                          </motion.div>
+                        </div>
                       ))}
                     </StaggeredContainer>
                   </motion.div>
@@ -298,37 +300,39 @@ const EnhancedAboutSection = () => {
                   >
                     <StaggeredContainer staggerDelay={0.1}>
                       {education.map((edu, index) => (
-                        <motion.div 
-                          key={edu.id}
-                          className="relative pl-8 border-l border-accent"
-                          initial={{ opacity: 0, y: 10 }}
-                          whileInView={{ opacity: 1, y: 0 }}
-                          viewport={{ once: true }}
-                          transition={{ delay: index * 0.1 }}
-                        >
-                          <div className="absolute left-[-5px] top-0 w-2 h-2 rounded-full bg-accent" />
-                          <h4 className="text-white font-medium">{edu.degree}</h4>
-                          <p className="text-accent text-sm">{edu.school}</p>
-                          <p className="text-gray-400 text-xs">{edu.year}</p>
-                          {edu.description && (
-                            <p className="text-gray-300 text-sm mt-2">{edu.description}</p>
-                          )}
-                          {edu.gpa && (
-                            <p className="text-secondary text-sm mt-1">GPA: {edu.gpa}</p>
-                          )}
-                          {edu.achievements && (
-                            <div className="mt-2">
-                              <p className="text-white text-xs mb-1">Achievements:</p>
-                              <ul className="text-gray-300 text-xs">
-                                {edu.achievements.map((achievement, achIndex) => (
-                                  <li key={achIndex} className="before:content-['•'] before:text-accent before:mr-1">
-                                    {achievement}
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          )}
-                        </motion.div>
+                        <div key={index} className="mb-4">
+                          <motion.div 
+                            key={edu.id}
+                            className="relative pl-8 border-l border-accent"
+                            initial={{ opacity: 0, y: 10 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: index * 0.1 }}
+                          >
+                            <div className="absolute left-[-5px] top-0 w-2 h-2 rounded-full bg-accent" />
+                            <h4 className="text-white font-medium">{edu.degree}</h4>
+                            <p className="text-accent text-sm">{edu.school}</p>
+                            <p className="text-gray-400 text-xs">{edu.year}</p>
+                            {edu.description && (
+                              <p className="text-gray-300 text-sm mt-2">{edu.description}</p>
+                            )}
+                            {edu.gpa && (
+                              <p className="text-secondary text-sm mt-1">GPA: {edu.gpa}</p>
+                            )}
+                            {edu.achievements && (
+                              <div className="mt-2">
+                                <p className="text-white text-xs mb-1">Achievements:</p>
+                                <ul className="text-gray-300 text-xs">
+                                  {edu.achievements.map((achievement, achIndex) => (
+                                    <li key={achIndex} className="before:content-['•'] before:text-accent before:mr-1">
+                                      {achievement}
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+                          </motion.div>
+                        </div>
                       ))}
                     </StaggeredContainer>
                   </motion.div>
