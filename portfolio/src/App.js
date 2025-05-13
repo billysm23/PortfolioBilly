@@ -8,9 +8,7 @@ import './parallax.css';
 
 // Lazy imports
 const NameHeaderLanding = React.lazy(() => import('./components/pages/NameHeaderLanding'));
-const Contact = React.lazy(() => import('./components/AboutContact').then(module => ({
-  default: module.Contact
-})));
+const Connect = React.lazy(() => import('./components/sections/Connect'));
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -143,7 +141,7 @@ function App() {
               <NameHeaderLanding userName={userName} />
             </Suspense>
             
-            {/* Lazy Load Contact Section */}
+            {/* Lazy Load Connect Section */}
             <LazyWrapper 
               fallback={<ContactLoading />}
               threshold={0.1}
@@ -155,7 +153,7 @@ function App() {
                 viewport={{ once: true, threshold: 0.1 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
               >
-                <Contact />
+                <Connect />
               </motion.div>
             </LazyWrapper>
             

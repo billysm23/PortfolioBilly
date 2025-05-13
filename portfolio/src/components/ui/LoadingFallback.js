@@ -70,7 +70,7 @@ export const AboutLoading = () => (
   </section>
 );
 
-// Contact loading
+// Connect loading (renamed from ContactLoading)
 export const ContactLoading = () => (
   <section className="py-20 px-4 md:px-8 bg-gradient-to-b from-black to-dark">
     <div className="max-w-7xl mx-auto">
@@ -84,3 +84,5 @@ export const ContactLoading = () => (
     </div>
   </section>
 );
+
+export const ConnectLoading = ContactLoading;

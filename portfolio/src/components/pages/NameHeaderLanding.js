@@ -15,11 +15,7 @@ import {
 // Lazy components
 const LazySimpleCursor = React.lazy(() => import('../features/Cursor/SimpleCursor'));
 const LazyProjects = React.lazy(() => import('../sections/Projects'));
-const LazyEnhancedAboutSection = React.lazy(() => 
-  import('../animations/ScrollAnimations').then(module => ({
-    default: module.EnhancedAboutSection
-  }))
-);
+const LazyAbout = React.lazy(() => import('../sections/About'));
 
 const FinalNameHeaderLanding = ({ userName }) => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -82,7 +78,7 @@ const FinalNameHeaderLanding = ({ userName }) => {
         threshold={0.1}
         rootMargin="300px"
       >
-        <LazyEnhancedAboutSection />
+        <LazyAbout />
       </LazyWrapper>
     </motion.div>
   );
