@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { Suspense, useEffect, useState } from 'react';
 import './App.css';
-import Footer from './components/Footer';
+import Footer from './components/layout/Footer';
 import LazyWrapper from './components/ui/LazyWrapper';
 import { ContactLoading } from './components/ui/LoadingFallback';
 import './parallax.css';
