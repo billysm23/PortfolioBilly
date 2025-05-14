@@ -1,29 +1,38 @@
 export const projects = [
   {
     id: 1,
-    title: "Futuristic Dashboard",
-    description: "A cutting-edge admin dashboard with real-time data visualization and AI-powered insights. Built with React, D3.js, and WebGL for smooth animations.",
-    tags: ["React", "D3.js", "WebGL", "AI/ML"],
-    image: "/projects/dashboard.png",
-    demo: "https://example.com",
-    github: "https://github.com/user/project"
+    title: "CT Lab Mobile App",
+    description: "Interactive mobile application for learning computational thinking concepts. Features progressive lessons, real-time quizzes, dark/light themes, and secure authentication system with progress tracking.",
+    tags: ["React Native", "Expo", "Supabase", "JWT", "Express.js"],
+    image: "/projects/ct-lab-mobile.png",
+    demo: "https://drive.google.com/file/d/1sf8d2S2j29PFblY9GClnGlyUde5YCj1k/view?usp=drive_link",
+    github: "https://github.com/billysm23/APP_VLab_PAWM"
   },
   {
     id: 2,
-    title: "3D Portfolio Website",
-    description: "An immersive 3D portfolio featuring interactive models, physics simulations, and adaptive lighting. Created with Three.js and React Three Fiber.",
-    tags: ["Three.js", "React", "GLSL", "WebXR"],
-    image: "/projects/3d-portfolio.png",
-    demo: "https://example.com",
-    github: "https://github.com/user/project"
+    title: "FitKitchen - Personalized Catering",
+    description: "Smart catering system providing personalized meal recommendations based on individual health profiles. Features BMI/BMR calculation, menu scoring algorithm, and comprehensive nutrition tracking.",
+    tags: ["React", "Vite", "Node.js", "Supabase"],
+    image: "/projects/fitkitchen.png",
+    demo: "https://fit-kitchen-frontend-tst.vercel.app",
+    github: "https://github.com/billysm23/FitKitchen_BackendTST"  
   },
   {
     id: 3,
-    title: "Quantum Computing Visualizer",
-    description: "Interactive quantum circuit builder with real-time simulation and visualization. Helps users understand quantum computing concepts through visual learning.",
-    tags: ["Quantum Computing", "WebAssembly", "Visualization", "Education"],
-    image: "/projects/quantum.png",
-    demo: "https://example.com",
-    github: "https://github.com/user/project"
+    title: "CT Lab Web Platform",
+    description: "Comprehensive web-based learning platform for computational thinking education. Features interactive lessons, quiz system, progress visualization, and secure user management with modern UI/UX.",
+    tags: ["React", "Node.js", "MongoDB", "JWT", "Docker"],
+    image: "/projects/ct-lab-web.png",
+    demo: "https://t2-frontend-pawm.vercel.app",
+    github: "https://github.com/billysm23/T2_BackendPAWM"
+  },
+  {
+    id: 4,
+    title: "FOMOCKEY - FOMO Management App",
+    description: "Mobile application designed to help students overcome Fear of Missing Out (FOMO) and improve well-being. Features focus mode, goal setting, activity consultation, and reward system with personalized recommendations.",
+    tags: ["UI/UX Design", "Figma"],
+    image: "/projects/fomockey.png",
+    demo: "https://bit.ly/TryFOMOCKEY",
+    github: "#"
   }
 ];

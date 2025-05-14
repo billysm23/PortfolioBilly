@@ -1,0 +1,185 @@
+/* Light mode variables */
+:root[data-theme="light"] {
+  --bg-primary: #f8fafc;
+  --bg-secondary: #f1f5f9;
+  --bg-tertiary: #e2e8f0;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-tertiary: #64748b;
+  --border-color: #e2e8f0;
+  --accent-primary: #7000ff;
+  --accent-secondary: #00ffaa;
+  --shadow: rgba(0, 0, 0, 0.1);
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(0, 0, 0, 0.1);
+}
+
+/* Dark mode variables (existing) */
+:root[data-theme="dark"] {
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #121212;
+  --bg-tertiary: #1a1a1a;
+  --text-primary: #ffffff;
+  --text-secondary: #e5e5e5;
+  --text-tertiary: #a3a3a3;
+  --border-color: #2a2a2a;
+  --accent-primary: #00ffaa;
+  --accent-secondary: #7000ff;
+  --shadow: rgba(0, 0, 0, 0.5);
+  --glass-bg: rgba(0, 0, 0, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+body.light {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.light {
+  ::selection {
+    background-color: #7000ff;
+    color: #ffffff;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--accent-primary);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-secondary);
+  }
+
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid var(--glass-border);
+  }
+
+  .gradient-text {
+    background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .grid-bg {
+    background-image: 
+      linear-gradient(rgba(112, 0, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(112, 0, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(rgba(0, 255, 170, 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 255, 170, 0.02) 1px, transparent 1px);
+    background-size: 20px 20px, 20px 20px, 5px 5px, 5px 5px;
+  }
+
+  /* Update section backgrounds */
+  .bg-dark {
+    background-color: var(--bg-secondary) !important;
+  }
+
+  .bg-black {
+    background-color: var(--bg-primary) !important;
+  }
+
+  /* Update text colors */
+  .text-white {
+    color: var(--text-primary) !important;
+  }
+
+  .text-gray-300 {
+    color: var(--text-secondary) !important;
+  }
+
+  .text-gray-400 {
+    color: var(--text-tertiary) !important;
+  }
+
+  /* Navigation */
+  nav {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    background: rgba(248, 250, 252, 0.8);
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  /* Project cards */
+  .bg-black.bg-opacity-50 {
+    background-color: rgba(255, 255, 255, 0.7) !important;
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border-color);
+  }
+
+  footer {
+    background-color: var(--bg-tertiary) !important;
+  }
+
+  .text-accent {
+    color: var(--accent-primary) !important;
+  }
+
+  .bg-accent {
+    background-color: var(--accent-primary) !important;
+  }
+
+  .border-accent {
+    border-color: var(--accent-primary) !important;
+  }
+
+  .text-secondary {
+    color: var(--accent-secondary) !important;
+  }
+
+  .bg-secondary {
+    background-color: var(--accent-secondary) !important;
+  }
+
+  /* Form inputs */
+  input, textarea, select {
+    background-color: var(--bg-secondary) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
+  }
+
+  input:focus, textarea:focus, select:focus {
+    border-color: var(--accent-primary) !important;
+    box-shadow: 0 0 0 3px rgba(112, 0, 255, 0.1) !important;
+  }
+
+  /* Buttons */
+  .bg-gradient-to-r {
+    background: linear-gradient(to right, var(--accent-secondary), var(--accent-primary)) !important;
+  }
+
+  /* Shadows */
+  .shadow-lg {
+    box-shadow: 0 10px 25px var(--shadow) !important;
+  }
+
+  /* Tags */
+  .bg-accent.bg-opacity-20 {
+    background-color: rgba(112, 0, 255, 0.1) !important;
+  }
+
+  .bg-secondary.bg-opacity-20 {
+    background-color: rgba(0, 255, 170, 0.1) !important;
+  }
+}
+
+* {
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.text-transition {
+  transition: color 0.3s ease;
+}

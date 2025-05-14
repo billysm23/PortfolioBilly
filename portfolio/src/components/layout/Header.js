@@ -1,5 +1,6 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import React, { useState } from 'react';
+import ThemeToggler from '../ui/ThemeToggler';
 import HamburgerMenu from './HamburgerMenu';
 
 const Header = ({ userName }) => {
@@ -34,7 +35,7 @@ const Header = ({ userName }) => {
           </div>
           
           {/* Desktop Menu - Hidden on mobile */}
-          <div className="hidden md:flex space-x-8">
+          <div className="hidden md:flex items-center space-x-8">
             {menuItems.map((item, i) => (
               <motion.a
                 key={item}
@@ -51,10 +52,16 @@ const Header = ({ userName }) => {
                 {item}
               </motion.a>
             ))}
+            <ThemeToggler className="ml-4" />
           </div>
           
-          {/* Mobile Hamburger Menu */}
-          <HamburgerMenu isOpen={isMenuOpen} setIsOpen={setIsMenuOpen} />
+          {/* Mobile Section */}
+          <div className="md:hidden flex items-center space-x-3">
+            <ThemeToggler />
+            
+            {/* Mobile Hamburger Menu */}
+            <HamburgerMenu isOpen={isMenuOpen} setIsOpen={setIsMenuOpen} />
+          </div>
         </div>
       </div>
     </motion.nav>
