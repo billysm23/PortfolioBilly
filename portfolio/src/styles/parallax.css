@@ -134,3 +134,26 @@ nav {
 .parallax-element {
   transition: transform 0.1s ease-out;
 }
+
+[data-theme="light"] .parallax-container {
+  background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%) !important;
+}
+
+[data-theme="light"] section::before,
+[data-theme="light"] section::after,
+.light section::before,
+.light section::after {
+  display: none !important;
+}
+
+[data-theme="light"] #projects,
+[data-theme="light"] #about,
+[data-theme="light"] #connect,
+.light #projects,
+.light #about,
+.light #connect {
+  background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%) !important;
+  border: none !important;
+  margin: 0 !important;
+  padding-top: 5rem !important;
+}

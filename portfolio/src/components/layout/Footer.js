@@ -85,7 +85,7 @@ const Footer = () => {
         
         {/* Copyright */}
         <div className="text-center text-gray-500 text-sm">
-          &copy; {currentYear} Your Name. All rights reserved.
+          &copy; {currentYear} Billy Samuel Setiawan. All rights reserved.
         </div>
       </div>
     </footer>
