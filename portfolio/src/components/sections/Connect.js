@@ -172,6 +172,7 @@ const Connect = () => {
             <div className="space-y-4">
               <motion.a
                 href={`mailto:${contactInfo.email}`}
+                aria-label="Send email to Billy"
                 className="flex items-center p-4 bg-secondary bg-opacity-20 rounded-lg text-white hover:bg-secondary hover:bg-opacity-30 transition-all group"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
@@ -190,6 +191,7 @@ const Connect = () => {
               
               <motion.a
                 href={`tel:${contactInfo.phone}`}
+                aria-label="Call Billy"
                 className="flex items-center p-4 bg-accent bg-opacity-20 rounded-lg text-white hover:bg-accent hover:bg-opacity-30 transition-all group"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
@@ -209,6 +211,7 @@ const Connect = () => {
                 href={contactInfo.socialLinks.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Connect with Billy on LinkedIn"
                 className="flex items-center p-4 bg-secondary bg-opacity-20 rounded-lg text-white hover:bg-secondary hover:bg-opacity-30 transition-all group"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
@@ -310,6 +313,7 @@ const Connect = () => {
               <div>
                 <label className="block text-accent mb-2 text-sm">Project Type *</label>
                 <select 
+                  id="project-type"
                   name="subject"
                   value={formData.subject}
                   onChange={(e) => handleInputChange('subject', e.target.value)}

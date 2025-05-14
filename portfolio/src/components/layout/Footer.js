@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import React from 'react';
 import { contactInfo } from '../../data/contact';
 
 const Footer = () => {
@@ -36,6 +35,7 @@ const Footer = () => {
                   href={platform.url}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={`Follow us on ${platform.name}`}
                   className="w-8 h-8 flex items-center justify-center rounded-full border border-accent text-accent hover:bg-accent hover:text-dark transition-colors"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}

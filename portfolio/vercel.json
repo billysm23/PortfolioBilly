@@ -1,8 +1,28 @@
 {
-    "rewrites": [
+  "headers": [
+    {
+      "source": "/static/(.*)",
+      "headers": [
         {
-            "source": "/(.*)",
-            "destination": "src/app.js"
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
         }
-    ]
+      ]
+    },
+    {
+      "source": "/(.*\\.(png|jpg|jpeg|gif|svg|woff|woff2))",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "src/app.js"
+    }
+  ]
 }

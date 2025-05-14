@@ -70,6 +70,7 @@ const Hero = ({ userName, isLoaded }) => {
               </motion.div>
               <motion.button 
                 className="mt-8 px-8 py-3 bg-secondary hover:bg-opacity-80 text-white rounded-full font-mono text-sm uppercase tracking-wider animate-glow cursor-hover"
+                aria-label="Explore My Projects"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.6 }}

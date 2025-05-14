@@ -143,6 +143,7 @@ const ProjectCarousel = () => {
           {/* Navigation Arrows */}
           <button
             onClick={prevProject}
+            aria-label="Previous project"
             className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-black bg-opacity-50 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-accent hover:text-dark transition-all border border-accent border-opacity-20"
           >
             <ChevronLeft size={24} />
@@ -150,6 +151,7 @@ const ProjectCarousel = () => {
           
           <button
             onClick={nextProject}
+            aria-label="Next project"
             className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-black bg-opacity-50 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-accent hover:text-dark transition-all border border-accent border-opacity-20"
           >
             <ChevronRight size={24} />
@@ -161,6 +163,7 @@ const ProjectCarousel = () => {
               <button
                 key={index}
                 onClick={() => goToProject(index)}
+                aria-label={`Go to project ${index + 1}`}
                 className={`w-3 h-3 rounded-full transition-all duration-300 ${
                   index === currentIndex 
                     ? 'bg-accent' 

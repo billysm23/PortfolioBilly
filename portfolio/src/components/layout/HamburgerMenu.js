@@ -28,6 +28,8 @@ const HamburgerMenu = ({
         className="flex flex-col justify-center items-center w-8 h-8 cursor-hover"
         onClick={() => setIsOpen(!isOpen)}
         whileTap={{ scale: 0.95 }}
+        aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"} // ✅ TAMBAH INI
+        aria-expanded={isOpen}
       >
         <motion.span 
           className="w-6 h-0.5 bg-white mb-1 rounded"

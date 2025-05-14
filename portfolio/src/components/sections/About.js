@@ -71,6 +71,7 @@ const About = () => {
                     href={platform.url}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label={`Visit my ${platform.name} profile`}
                     className="custom-hover-button px-4 py-2 border border-accent text-accent rounded-full text-sm hover:bg-accent hover:text-dark transition-colors cursor-hover"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
@@ -91,6 +92,7 @@ const About = () => {
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
+                  aria-label={`Show ${tab.label} information`}
                   className={`px-4 py-2 text-sm font-medium transition-all duration-300 ${
                     activeTab === tab.id ? 'text-accent border-b-2 border-accent' : 'text-gray-400'
                   }`}
