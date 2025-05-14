@@ -36,7 +36,7 @@ const Hero = ({ userName, isLoaded }) => {
   const mouseMoveY = mousePosition.y * 20;
 
   return (
-    <section className="relative h-screen w-full flex items-center justify-center overflow-hidden">
+    <section id="home" className="relative h-screen w-full flex items-center justify-center overflow-hidden">
       <ParallaxBackground />
       <FloatingElements />
       

@@ -156,7 +156,7 @@ function App() {
                   viewport={{ once: true, threshold: 0.1 }}
                   transition={{ duration: 0.8, ease: "easeOut" }}
                 >
-                  <Connect />
+                  <Connect id="connect" />
                 </motion.div>
               </LazyWrapper>
               

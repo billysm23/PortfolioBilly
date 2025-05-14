@@ -22,7 +22,8 @@ const NameTransition = ({ userName = "NAMA ANDA" }) => {
     const getResponsiveX = () => {
       const width = window.innerWidth;
       
-      if (width < 640) return width * 0.5;
+      if (width < 400) return width * 0.25;
+      if (width < 640) return width * 0.21;
       if (width < 768) return width * 0.18;
       if (width < 1024) return width * 0.15;
       return width * 0.1;

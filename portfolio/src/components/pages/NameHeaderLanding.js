@@ -17,7 +17,7 @@ const LazySimpleCursor = React.lazy(() => import('../features/Cursor/SimpleCurso
 const LazyProjects = React.lazy(() => import('../sections/Projects'));
 const LazyAbout = React.lazy(() => import('../sections/About'));
 
-const FinalNameHeaderLanding = ({ userName }) => {
+const NameHeaderLanding = ({ userName }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [showCursor, setShowCursor] = useState(false);
   
@@ -84,4 +84,4 @@ const FinalNameHeaderLanding = ({ userName }) => {
   );
 };
 
-export default FinalNameHeaderLanding;
+export default NameHeaderLanding;

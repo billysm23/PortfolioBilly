@@ -11,7 +11,12 @@ const Header = ({ userName }) => {
   const headerBg = useTransform(scrollY, [50, 150], [0.4, 0.9]);
   const headerBlur = useTransform(scrollY, [50, 150], [5, 15]);
   
-  const menuItems = ['Home', 'Projects', 'About', 'Contact'];
+  const menuItems = [
+    { name: 'Home', id: 'home' },
+    { name: 'Projects', id: 'projects' }, 
+    { name: 'About', id: 'about' },
+    { name: 'Contact', id: 'connect' }
+  ];
   
   return (
     <motion.nav 
@@ -38,8 +43,8 @@ const Header = ({ userName }) => {
           <div className="hidden md:flex items-center space-x-8">
             {menuItems.map((item, i) => (
               <motion.a
-                key={item}
-                href={`#${item.toLowerCase()}`}
+                key={item.name}
+                href={`#${item.id}`}
                 className="text-base hover:text-accent transition-colors cursor-hover"
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -49,7 +54,7 @@ const Header = ({ userName }) => {
                   textShadow: "0 0 8px #00ffaa"
                 }}
               >
-                {item}
+                {item.name}
               </motion.a>
             ))}
             <ThemeToggler className="ml-4" />
