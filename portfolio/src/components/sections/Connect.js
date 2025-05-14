@@ -1,6 +1,6 @@
 import emailjs from '@emailjs/browser';
 import { motion } from 'framer-motion';
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { contactInfo } from '../../data/contact';
 
 const Connect = () => {
@@ -141,13 +141,6 @@ const Connect = () => {
       setIsSubmitting(false);
     }
   };
-  
-  const socialPlatforms = [
-    { name: 'Twitter', url: contactInfo.socialLinks.twitter, initial: 'T' },
-    { name: 'LinkedIn', url: contactInfo.socialLinks.linkedin, initial: 'L' },
-    { name: 'Instagram', url: contactInfo.socialLinks.instagram, initial: 'I' },
-    { name: 'Github', url: contactInfo.socialLinks.github, initial: 'G' }
-  ];
   
   return (
     <section id="connect" className="py-20 px-4 md:px-8 bg-gradient-to-b from-black to-dark">

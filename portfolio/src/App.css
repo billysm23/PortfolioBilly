@@ -359,6 +359,12 @@ html {
   box-shadow: 0 8px 32px rgba(59, 130, 246, 0.08) !important;
 }
 
+.bg-black.bg-opacity-50.backdrop-blur-sm.border.border-accent.border-opacity-20 {
+  background: linear-gradient(135deg, rgba(5, 69, 23, 0.329) 0%, rgb(2, 19, 12) 100%) !important;
+  border: 1px solid rgba(59, 130, 246, 0.2) !important;
+  box-shadow: 0 8px 32px rgba(59, 130, 246, 0.08) !important;
+}
+
 [data-theme="light"] .bg-black.bg-opacity-40 {
   background: rgba(0, 0, 0, 0.25) !important;
 }
@@ -551,7 +557,16 @@ html {
 }
 
 /* About section links hover */
-[data-theme="light"] #about .text-accent:hover {
+[data-theme="light"] #about .border.border-accent.text-accent:hover {
+  background-color: rgba(30, 64, 175, 0.894) !important;
+  color: #d4e7ff !important;
+}
+
+[data-theme="light"] #about .bg-accent.bg-opacity-20.text-accent {
+  background-color: rgba(174, 241, 241, 0.551) !important;
+}
+
+[data-theme="light"] #projects .text-accent:hover {
   background-color: rgba(30, 64, 175, 0.894) !important;
   color: #d4e7ff !important;
 }

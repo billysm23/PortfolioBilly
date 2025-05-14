@@ -67,9 +67,7 @@ const HamburgerMenu = ({
                 >
                   <motion.a
                     href={`#${item.id}`}
-                    className={`block px-4 py-3 text-white hover:text-accent hover:bg-accent hover:bg-opacity-10 transition-colors relative ${
-                      !sectionsReady[item.id] ? 'opacity-75' : ''
-                    }`}
+                    className="block px-4 py-3 text-white hover:text-accent hover:bg-accent hover:bg-opacity-10 transition-colors relative"
                     onClick={(e) => handleMenuClick(e, item.id)}
                   >
                     <div className="flex items-center justify-between">
@@ -82,11 +80,6 @@ const HamburgerMenu = ({
                           animate={{ rotate: 360 }}
                           transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                         />
-                      )}
-                      
-                      {/* Mobile not ready indicator */}
-                      {!sectionsReady[item.id] && navigationLoading !== item.id && (
-                        <span className="w-2 h-2 bg-yellow-500 rounded-full animate-pulse" />
                       )}
                     </div>
                   </motion.a>

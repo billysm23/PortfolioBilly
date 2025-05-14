@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
+import { contactInfo } from '../../data/contact'; // Import contact data
 import { education } from '../../data/education';
 import { experience } from '../../data/experience';
 import { skills } from '../../data/skills';
@@ -12,6 +13,12 @@ const About = () => {
     { id: 'skills', label: 'Skills' },
     { id: 'experience', label: 'Experience' },
     { id: 'education', label: 'Education' }
+  ];
+
+  const socialLinks = [
+    { name: 'GitHub', url: contactInfo.socialLinks.github },
+    { name: 'LinkedIn', url: contactInfo.socialLinks.linkedin },
+    { name: 'Twitter', url: contactInfo.socialLinks.twitter }
   ];
   
   return (
@@ -58,15 +65,17 @@ const About = () => {
               </p>
               
               <div className="mt-8 flex space-x-4">
-                {['GitHub', 'LinkedIn', 'Twitter'].map((platform) => (
+                {socialLinks.map((platform) => (
                   <motion.a
-                    key={platform}
-                    href="#"
+                    key={platform.name}
+                    href={platform.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="custom-hover-button px-4 py-2 border border-accent text-accent rounded-full text-sm hover:bg-accent hover:text-dark transition-colors cursor-hover"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    {platform}
+                    {platform.name}
                   </motion.a>
                 ))}
               </div>

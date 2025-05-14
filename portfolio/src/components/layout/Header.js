@@ -43,7 +43,7 @@ const Header = ({ userName }) => {
     return () => clearInterval(interval);
   }, []);
 
-  // Smart navigation handler with loading indicator
+  // Smart navigation handler
   const handleNavigation = (e, sectionId) => {
     e.preventDefault();
     
@@ -115,9 +115,7 @@ const Header = ({ userName }) => {
                 <motion.a
                   href={`#${item.id}`}
                   onClick={(e) => handleNavigation(e, item.id)}
-                  className={`text-base hover:text-accent transition-colors cursor-hover relative ${
-                    !sectionsReady[item.id] ? 'opacity-75' : ''
-                  }`}
+                  className="text-base hover:text-accent transition-colors cursor-hover relative"
                   whileHover={{ 
                     scale: 1.1,
                     textShadow: "0 0 8px #00ffaa"
@@ -134,11 +132,6 @@ const Header = ({ userName }) => {
                       transition={{ duration: 0.5, repeat: Infinity, repeatType: "reverse" }}
                     />
                   )}
-                  
-                  {/* Not ready indicator */}
-                  {!sectionsReady[item.id] && navigationLoading !== item.id && (
-                    <span className="absolute -top-1 -right-1 w-2 h-2 bg-yellow-500 rounded-full animate-pulse" />
-                  )}
                 </motion.a>
               </motion.div>
             ))}
@@ -148,8 +141,6 @@ const Header = ({ userName }) => {
           {/* Mobile Section */}
           <div className="md:hidden flex items-center space-x-3">
             <ThemeToggler />
-            
-            {/* Mobile Hamburger Menu */}
             <HamburgerMenu 
               isOpen={isMenuOpen} 
               setIsOpen={setIsMenuOpen}

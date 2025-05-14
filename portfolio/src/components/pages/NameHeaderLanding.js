@@ -16,30 +16,48 @@ import {
 const LazySimpleCursor = React.lazy(() => import('../features/Cursor/SimpleCursor'));
 const LazyProjects = React.lazy(() => import('../sections/Projects'));
 const LazyAbout = React.lazy(() => import('../sections/About'));
+const Connect = React.lazy(() => import('../sections/Connect'));
 
-const NameHeaderLanding = ({ userName, isMobile, sectionsReady }) => {
+const NameHeaderLanding = ({ userName, preloadSections = false, isMobile = false }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [showCursor, setShowCursor] = useState(false);
+  const [forceLoadProjects, setForceLoadProjects] = useState(false);
+  const [forceLoadAbout, setForceLoadAbout] = useState(false);
+  const [forceLoadConnect, setForceLoadConnect] = useState(false);
   
   useEffect(() => {
-    const timer = setTimeout(() => {
+    setTimeout(() => {
       setIsLoaded(true);
-      setShowCursor(true);
+      setShowCursor(!isMobile);
     }, 300);
-    
-    return () => clearTimeout(timer);
+  }, [isMobile]);
+
+  // React to preloadSections prop changes
+  useEffect(() => {
+    if (preloadSections) {
+      setForceLoadProjects(true);
+      setForceLoadAbout(true);
+      setForceLoadConnect(true);
+    }
+  }, [preloadSections]);
+
+  // Listen for custom events to force load sections
+  useEffect(() => {
+    const handleForceLoadSection = (event) => {
+      const { sectionId } = event.detail;
+      
+      if (sectionId === 'projects') {
+        setForceLoadProjects(true);
+      } else if (sectionId === 'about') {
+        setForceLoadAbout(true);
+      } else if (sectionId === 'connect') {
+        setForceLoadConnect(true);
+      }
+    };
+
+    window.addEventListener('forceLoadSection', handleForceLoadSection);
+    return () => window.removeEventListener('forceLoadSection', handleForceLoadSection);
   }, []);
-
-  // Calculate responsive values
-  const getThreshold = () => {
-    if (!sectionsReady) return 0.1;
-    return isMobile ? 0.2 : 0.3;
-  };
-
-  const getRootMargin = () => {
-    if (!sectionsReady) return "100px";
-    return isMobile ? "300px" : "500px";
-  };
 
   return (
     <motion.div 
@@ -61,30 +79,64 @@ const NameHeaderLanding = ({ userName, isMobile, sectionsReady }) => {
       <Hero userName={userName} isLoaded={isLoaded} />
 
       {/* Projects Section */}
-      <LazyWrapper 
-        fallback={<ProjectsLoading />}
-        threshold={getThreshold()}
-        rootMargin={getRootMargin()}
-        className="section-wrapper"
-        id="projects-wrapper"
-      >
+      {forceLoadProjects ? (
         <div id="projects">
-          <LazyProjects />
+          <Suspense fallback={<ProjectsLoading />}>
+            <LazyProjects />
+          </Suspense>
         </div>
-      </LazyWrapper>
+      ) : (
+        <LazyWrapper 
+          fallback={<ProjectsLoading />}
+          threshold={0.1}
+          rootMargin="300px"
+          id="projects-wrapper"
+        >
+          <div id="projects">
+            <LazyProjects />
+          </div>
+        </LazyWrapper>
+      )}
       
       {/* About Section */}
-      <LazyWrapper 
-        fallback={<AboutLoading />}
-        threshold={getThreshold()}
-        rootMargin={getRootMargin()}
-        className="section-wrapper"
-        id="about-wrapper"
-      >
+      {forceLoadAbout ? (
         <div id="about">
-          <LazyAbout />
+          <Suspense fallback={<AboutLoading />}>
+            <LazyAbout />
+          </Suspense>
         </div>
-      </LazyWrapper>
+      ) : (
+        <LazyWrapper 
+          fallback={<AboutLoading />}
+          threshold={0.1}
+          rootMargin="300px"
+          id="about-wrapper"
+        >
+          <div id="about">
+            <LazyAbout />
+          </div>
+        </LazyWrapper>
+      )}
+
+      {/* Connect Section */}
+      {forceLoadConnect ? (
+        <div id="connect">
+          <Suspense fallback={<div className="py-20 px-4 md:px-8"><span className="text-accent">Loading Contact...</span></div>}>
+            <Connect />
+          </Suspense>
+        </div>
+      ) : (
+        <LazyWrapper 
+          fallback={<div className="py-20 px-4 md:px-8"><span className="text-accent">Loading Contact...</span></div>}
+          threshold={0.1}
+          rootMargin="300px"
+          id="connect-wrapper"
+        >
+          <div id="connect">
+            <Connect />
+          </div>
+        </LazyWrapper>
+      )}
     </motion.div>
   );
 };

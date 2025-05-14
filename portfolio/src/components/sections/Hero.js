@@ -75,6 +75,12 @@ const Hero = ({ userName, isLoaded }) => {
                 transition={{ duration: 0.5, delay: 0.6 }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                onClick={() => {
+                  const targetSection = document.getElementById('projects');
+                  if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
               >
                 Explore Projects
               </motion.button>

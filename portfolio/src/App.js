@@ -2,23 +2,20 @@ import { AnimatePresence, motion } from 'framer-motion';
 import React, { Suspense, useEffect, useState } from 'react';
 import './App.css';
 import Footer from './components/layout/Footer';
-import LazyWrapper from './components/ui/LazyWrapper';
-import { ContactLoading } from './components/ui/LoadingFallback';
 import { ThemeProvider } from './context/ThemeContext';
 import './styles/light-mode.css';
 import './styles/parallax.css';
 
 // Lazy imports
 const NameHeaderLanding = React.lazy(() => import('./components/pages/NameHeaderLanding'));
-const Connect = React.lazy(() => import('./components/sections/Connect'));
 
 function App() {
   const [loading, setLoading] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
   const [userName] = useState("BILLY SAMUEL");
+  const [preloadSections, setPreloadSections] = useState(false);
 
   useEffect(() => {
-    // Check if mobile device
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);
     };
@@ -26,9 +23,13 @@ function App() {
     checkMobile();
     window.addEventListener('resize', checkMobile);
     
-    // Simulate loading
     const timer = setTimeout(() => {
       setLoading(false);
+      
+      // Trigger preload for navigation
+      setTimeout(() => {
+        setPreloadSections(true);
+      }, 500);
     }, 2000);
 
     return () => {
@@ -131,7 +132,7 @@ function App() {
               />
             </motion.div>
           ) : (
-            // Main Content with Lazy Loading
+            // Main Content with Hybrid Lazy Loading
             <motion.div
               key="content"
               initial={{ opacity: 0 }}
@@ -139,33 +140,24 @@ function App() {
               transition={{ duration: 0.5 }}
               className="content-wrapper"
             >
-              {/* Lazy Load Main Portfolio Section */}
-              <Suspense fallback={<div className="h-screen bg-dark flex items-center justify-center"><span className="text-accent"></span></div>}>
-                <NameHeaderLanding userName={userName} />
+              {/* Main Portfolio Section */}
+              <Suspense fallback={
+                <div className="h-screen bg-dark flex items-center justify-center">
+                </div>
+              }>
+                <NameHeaderLanding 
+                  userName={userName} 
+                  preloadSections={preloadSections}
+                  isMobile={isMobile}
+                />
               </Suspense>
               
-              {/* Lazy Load Connect Section */}
-              <LazyWrapper 
-                fallback={<ContactLoading />}
-                threshold={0.1}
-                rootMargin="200px"
-              >
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true, threshold: 0.1 }}
-                  transition={{ duration: 0.8, ease: "easeOut" }}
-                >
-                  <Connect id="connect" />
-                </motion.div>
-              </LazyWrapper>
-              
-              {/* Footer with fade in animation */}
+              {/* Footer */}
               <motion.div
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, threshold: 0.1 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
               >
                 <Footer />
               </motion.div>
