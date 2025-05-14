@@ -17,32 +17,29 @@ const LazySimpleCursor = React.lazy(() => import('../features/Cursor/SimpleCurso
 const LazyProjects = React.lazy(() => import('../sections/Projects'));
 const LazyAbout = React.lazy(() => import('../sections/About'));
 
-const NameHeaderLanding = ({ userName }) => {
+const NameHeaderLanding = ({ userName, isMobile, sectionsReady }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [showCursor, setShowCursor] = useState(false);
   
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       setIsLoaded(true);
       setShowCursor(true);
-    }, 500);
+    }, 300);
+    
+    return () => clearTimeout(timer);
   }, []);
 
-  // Debug scroll height
-  useEffect(() => {
-    setTimeout(() => {
-      const elements = document.querySelectorAll('*');
-      elements.forEach(el => {
-        const rect = el.getBoundingClientRect();
-        if (rect.height > window.innerHeight) {
-          console.log('Tall element:', el, 'Height:', rect.height);
-        }
-      });
-      
-      console.log('Document scroll height:', document.documentElement.scrollHeight);
-      console.log('Window height:', window.innerHeight);
-    }, 1000);
-  }, []);
+  // Calculate responsive values
+  const getThreshold = () => {
+    if (!sectionsReady) return 0.1;
+    return isMobile ? 0.2 : 0.3;
+  };
+
+  const getRootMargin = () => {
+    if (!sectionsReady) return "100px";
+    return isMobile ? "300px" : "500px";
+  };
 
   return (
     <motion.div 
@@ -51,8 +48,8 @@ const NameHeaderLanding = ({ userName }) => {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      {/* Lazy Load Custom Cursor */}
-      {showCursor && (
+      {/* Custom Cursor - Only on desktop */}
+      {showCursor && !isMobile && (
         <Suspense fallback={null}>
           <LazySimpleCursor />
         </Suspense>
@@ -63,22 +60,30 @@ const NameHeaderLanding = ({ userName }) => {
       <ParallaxBackground />
       <Hero userName={userName} isLoaded={isLoaded} />
 
-      {/* Lazy Load Projects Section */}
+      {/* Projects Section */}
       <LazyWrapper 
         fallback={<ProjectsLoading />}
-        threshold={0.1}
-        rootMargin="300px"
+        threshold={getThreshold()}
+        rootMargin={getRootMargin()}
+        className="section-wrapper"
+        id="projects-wrapper"
       >
-        <LazyProjects />
+        <div id="projects">
+          <LazyProjects />
+        </div>
       </LazyWrapper>
       
-      {/* Lazy Load About Section */}
+      {/* About Section */}
       <LazyWrapper 
         fallback={<AboutLoading />}
-        threshold={0.1}
-        rootMargin="300px"
+        threshold={getThreshold()}
+        rootMargin={getRootMargin()}
+        className="section-wrapper"
+        id="about-wrapper"
       >
-        <LazyAbout />
+        <div id="about">
+          <LazyAbout />
+        </div>
       </LazyWrapper>
     </motion.div>
   );

@@ -1,8 +1,25 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import React from 'react';
 
-const HamburgerMenu = ({ isOpen, setIsOpen }) => {
-  const menuItems = ['Home', 'Projects', 'About', 'Contact'];
+const HamburgerMenu = ({ 
+  isOpen, 
+  setIsOpen, 
+  onNavigate, 
+  sectionsReady = {}, 
+  navigationLoading = null 
+}) => {
+  const menuItems = [
+    { name: 'Home', id: 'home' },
+    { name: 'Projects', id: 'projects' },
+    { name: 'About', id: 'about' },
+    { name: 'Contact', id: 'connect' }
+  ];
+
+  const handleMenuClick = (e, id) => {
+    setIsOpen(false);
+    if (onNavigate) {
+      onNavigate(e, id);
+    }
+  };
 
   return (
     <div className="md:hidden">
@@ -41,17 +58,39 @@ const HamburgerMenu = ({ isOpen, setIsOpen }) => {
           >
             <div className="py-2">
               {menuItems.map((item, i) => (
-                <motion.a
-                  key={item}
-                  href={`#${item.toLowerCase()}`}
-                  className="block px-4 py-3 text-white hover:text-accent hover:bg-accent hover:bg-opacity-10 transition-colors"
+                <motion.div
+                  key={item.name}
+                  className="relative"
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.05 }}
-                  onClick={() => setIsOpen(false)}
                 >
-                  {item}
-                </motion.a>
+                  <motion.a
+                    href={`#${item.id}`}
+                    className={`block px-4 py-3 text-white hover:text-accent hover:bg-accent hover:bg-opacity-10 transition-colors relative ${
+                      !sectionsReady[item.id] ? 'opacity-75' : ''
+                    }`}
+                    onClick={(e) => handleMenuClick(e, item.id)}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span>{item.name}</span>
+                      
+                      {/* Mobile loading indicator */}
+                      {navigationLoading === item.id && (
+                        <motion.div
+                          className="w-4 h-4 border-2 border-accent border-t-transparent rounded-full"
+                          animate={{ rotate: 360 }}
+                          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                        />
+                      )}
+                      
+                      {/* Mobile not ready indicator */}
+                      {!sectionsReady[item.id] && navigationLoading !== item.id && (
+                        <span className="w-2 h-2 bg-yellow-500 rounded-full animate-pulse" />
+                      )}
+                    </div>
+                  </motion.a>
+                </motion.div>
               ))}
             </div>
           </motion.div>

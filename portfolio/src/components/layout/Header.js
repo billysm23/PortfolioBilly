@@ -1,11 +1,18 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ThemeToggler from '../ui/ThemeToggler';
 import HamburgerMenu from './HamburgerMenu';
 
 const Header = ({ userName }) => {
   const { scrollY } = useScroll();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [navigationLoading, setNavigationLoading] = useState(null);
+  const [sectionsReady, setSectionsReady] = useState({
+    home: true,
+    projects: false,
+    about: false,
+    connect: false
+  });
   
   // Header background opacity
   const headerBg = useTransform(scrollY, [50, 150], [0.4, 0.9]);
@@ -17,6 +24,62 @@ const Header = ({ userName }) => {
     { name: 'About', id: 'about' },
     { name: 'Contact', id: 'connect' }
   ];
+
+  // Check if sections exist in DOM periodically
+  useEffect(() => {
+    const checkSections = () => {
+      setSectionsReady(prev => ({
+        ...prev,
+        projects: !!document.getElementById('projects'),
+        about: !!document.getElementById('about'),
+        connect: !!document.getElementById('connect')
+      }));
+    };
+
+    checkSections();
+
+    const interval = setInterval(checkSections, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // Smart navigation handler with loading indicator
+  const handleNavigation = (e, sectionId) => {
+    e.preventDefault();
+    
+    let section = document.getElementById(sectionId);
+    
+    if (section) {
+      // Section exists, scroll to it
+      section.scrollIntoView({ behavior: 'smooth' });
+      setNavigationLoading(null);
+    } else {
+      // Section doesn't exist, show loading and try to trigger lazy loading
+      setNavigationLoading(sectionId);
+      
+      const approximatePositions = {
+        'home': 0,
+        'projects': window.innerHeight * 1.2,
+        'about': window.innerHeight * 2.5,
+        'connect': window.innerHeight * 4
+      };
+      
+      const targetPosition = approximatePositions[sectionId] || 0;
+      
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth'
+      });
+      
+      setTimeout(() => {
+        const retrySection = document.getElementById(sectionId);
+        if (retrySection) {
+          retrySection.scrollIntoView({ behavior: 'smooth' });
+        }
+        setNavigationLoading(null);
+      }, 500);
+    }
+  };
   
   return (
     <motion.nav 
@@ -42,20 +105,42 @@ const Header = ({ userName }) => {
           {/* Desktop Menu - Hidden on mobile */}
           <div className="hidden md:flex items-center space-x-8">
             {menuItems.map((item, i) => (
-              <motion.a
+              <motion.div
                 key={item.name}
-                href={`#${item.id}`}
-                className="text-base hover:text-accent transition-colors cursor-hover"
+                className="relative"
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: i * 0.1 }}
-                whileHover={{ 
-                  scale: 1.1,
-                  textShadow: "0 0 8px #00ffaa"
-                }}
               >
-                {item.name}
-              </motion.a>
+                <motion.a
+                  href={`#${item.id}`}
+                  onClick={(e) => handleNavigation(e, item.id)}
+                  className={`text-base hover:text-accent transition-colors cursor-hover relative ${
+                    !sectionsReady[item.id] ? 'opacity-75' : ''
+                  }`}
+                  whileHover={{ 
+                    scale: 1.1,
+                    textShadow: "0 0 8px #00ffaa"
+                  }}
+                >
+                  {item.name}
+                  
+                  {/* Loading indicator */}
+                  {navigationLoading === item.id && (
+                    <motion.div
+                      className="absolute -bottom-1 left-0 right-0 h-0.5 bg-accent"
+                      initial={{ scaleX: 0 }}
+                      animate={{ scaleX: 1 }}
+                      transition={{ duration: 0.5, repeat: Infinity, repeatType: "reverse" }}
+                    />
+                  )}
+                  
+                  {/* Not ready indicator */}
+                  {!sectionsReady[item.id] && navigationLoading !== item.id && (
+                    <span className="absolute -top-1 -right-1 w-2 h-2 bg-yellow-500 rounded-full animate-pulse" />
+                  )}
+                </motion.a>
+              </motion.div>
             ))}
             <ThemeToggler className="ml-4" />
           </div>
@@ -65,7 +150,13 @@ const Header = ({ userName }) => {
             <ThemeToggler />
             
             {/* Mobile Hamburger Menu */}
-            <HamburgerMenu isOpen={isMenuOpen} setIsOpen={setIsMenuOpen} />
+            <HamburgerMenu 
+              isOpen={isMenuOpen} 
+              setIsOpen={setIsMenuOpen}
+              onNavigate={handleNavigation}
+              sectionsReady={sectionsReady}
+              navigationLoading={navigationLoading}
+            />
           </div>
         </div>
       </div>

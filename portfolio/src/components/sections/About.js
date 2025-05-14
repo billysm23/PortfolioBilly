@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { education } from '../../data/education';
 import { experience } from '../../data/experience';
 import { skills } from '../../data/skills';
@@ -62,7 +62,7 @@ const About = () => {
                   <motion.a
                     key={platform}
                     href="#"
-                    className="px-4 py-2 border border-accent text-accent rounded-full text-sm hover:bg-accent hover:text-dark transition-colors cursor-hover"
+                    className="custom-hover-button px-4 py-2 border border-accent text-accent rounded-full text-sm hover:bg-accent hover:text-dark transition-colors cursor-hover"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >

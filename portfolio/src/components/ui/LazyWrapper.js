@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 import { useLazyLoad } from '../../hooks/useIntersectionObserver';
 
 const LazyWrapper = ({ 
@@ -6,12 +6,17 @@ const LazyWrapper = ({
   fallback, 
   threshold = 0.1, 
   rootMargin = '100px',
-  className = "" 
+  className = "",
+  id = ""
 }) => {
   const { elementRef, shouldLoad } = useLazyLoad(threshold, rootMargin);
 
   return (
-    <div ref={elementRef} className={className}>
+    <div 
+      ref={elementRef} 
+      className={className}
+      id={id}
+    >
       {shouldLoad ? (
         <Suspense fallback={fallback}>
           {children}
