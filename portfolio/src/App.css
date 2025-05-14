@@ -33,8 +33,8 @@ body {
 }
 
 [data-theme="light"] body {
-  background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%) !important;
-  color: #1e293b !important;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%) !important;
+  color: #0f172a !important;
 }
 
 html {
@@ -60,11 +60,11 @@ html {
 }
 
 [data-theme="light"] .glass {
-  background: rgba(240, 244, 248, 0.8) !important;
+  background: rgba(248, 250, 252, 0.85) !important;
   backdrop-filter: blur(12px) !important;
   -webkit-backdrop-filter: blur(12px) !important;
-  border: 1px solid rgba(30, 64, 175, 0.2) !important;
-  box-shadow: 0 4px 24px rgba(30, 64, 175, 0.1) !important;
+  border: 1px solid rgba(59, 130, 246, 0.25) !important;
+  box-shadow: 0 4px 24px rgba(59, 130, 246, 0.1) !important;
 }
 
 /* Custom Animation */
@@ -74,7 +74,7 @@ html {
 }
 
 [data-theme="light"] .hover-glow:hover {
-  box-shadow: 0 0 15px #1e40af, 0 0 30px rgba(30, 64, 175, 0.5) !important;
+  box-shadow: 0 0 15px #3b82f6, 0 0 30px rgba(59, 130, 246, 0.4) !important;
 }
 
 .gradient-text {
@@ -85,7 +85,7 @@ html {
 }
 
 [data-theme="light"] .gradient-text {
-  background: linear-gradient(90deg, #1e40af, #0066ff) !important;
+  background: linear-gradient(90deg, #1e40af, #3b82f6) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   color: transparent !important;
@@ -110,7 +110,7 @@ html {
 }
 
 [data-theme="light"] .neon-border::after {
-  background: linear-gradient(45deg, #1e40af, #0066ff, #0ea5e9) !important;
+  background: linear-gradient(45deg, #1e40af, #3b82f6, #60a5fa) !important;
 }
 
 @keyframes border-glow {
@@ -142,16 +142,16 @@ html {
 
 [data-theme="light"] .text-3d {
   text-shadow: 
-    0 1px 0 #cbd5e1,
-    0 2px 0 #b8c5d1,
-    0 3px 0 #a5b2c0,
-    0 4px 0 #919eaf,
-    0 5px 0 #7e8a9d,
-    0 6px 1px rgba(30, 64, 175, 0.1),
-    0 0 5px rgba(30, 64, 175, 0.1),
-    0 1px 3px rgba(30, 64, 175, 0.2),
-    0 3px 5px rgba(30, 64, 175, 0.15),
-    0 5px 10px rgba(30, 64, 175, 0.1) !important;
+    0 1px 0 #e2e8f0,
+    0 2px 0 #cbd5e1,
+    0 3px 0 #94a3b8,
+    0 4px 0 #64748b,
+    0 5px 0 #475569,
+    0 6px 1px rgba(59, 130, 246, 0.1),
+    0 0 5px rgba(59, 130, 246, 0.1),
+    0 1px 3px rgba(59, 130, 246, 0.2),
+    0 3px 5px rgba(59, 130, 246, 0.15),
+    0 5px 10px rgba(59, 130, 246, 0.1) !important;
 }
 
 /* Grid Background */
@@ -165,25 +165,25 @@ html {
 
 [data-theme="light"] .grid-bg {
   background-image: 
-    linear-gradient(rgba(30, 64, 175, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(30, 64, 175, 0.08) 1px, transparent 1px),
-    linear-gradient(rgba(14, 165, 233, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(14, 165, 233, 0.04) 1px, transparent 1px) !important;
+    linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+    linear-gradient(rgba(96, 165, 250, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(96, 165, 250, 0.05) 1px, transparent 1px) !important;
   background-size: 20px 20px, 20px 20px, 5px 5px, 5px 5px !important;
   background-position: 0 0, 0 0, 10px 10px, 10px 10px !important;
 }
 
 /* Force overrides for component level changes */
 [data-theme="light"] .bg-dark {
-  background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%) !important;
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%) !important;
 }
 
 [data-theme="light"] .bg-black {
-  background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%) !important;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%) !important;
 }
 
 [data-theme="light"] .text-white {
-  color: #1e293b !important;
+  color: #0f172a !important;
 }
 
 [data-theme="light"] .text-gray-300 {
@@ -199,7 +199,7 @@ html {
 }
 
 [data-theme="light"] .text-secondary {
-  color: #0ea5e9 !important;
+  color: #3b82f6 !important;
 }
 
 [data-theme="light"] .bg-accent {
@@ -207,7 +207,7 @@ html {
 }
 
 [data-theme="light"] .bg-secondary {
-  background-color: #0ea5e9 !important;
+  background-color: #3b82f6 !important;
 }
 
 [data-theme="light"] .border-accent {
@@ -215,41 +215,46 @@ html {
 }
 
 /* Contact section */
+[data-theme="light"] #connect {
+  background: linear-gradient(to bottom, #f8fafc, #f1f5f9) !important;
+}
+
 [data-theme="light"] #connect .text-accent {
   color: #1e40af !important;
 }
 
 /* Get In Touch card */
 [data-theme="light"] #connect .bg-black.bg-opacity-50.backdrop-blur-sm {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 244, 248, 0.95) 100%) !important;
-  border: 1px solid rgba(30, 64, 175, 0.15) !important;
-  color: #1e293b !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.95) 100%) !important;
+  border: 1px solid rgba(59, 130, 246, 0.2) !important;
+  color: #0f172a !important;
+  box-shadow: 0 8px 32px rgba(59, 130, 246, 0.08) !important;
 }
 
 /* Contact action buttons */
 [data-theme="light"] #connect .bg-secondary.bg-opacity-20 {
-  background-color: rgba(30, 64, 175, 0.1) !important;
-  color: #1e293b !important;
-  border: 1px solid rgba(30, 64, 175, 0.2) !important;
+  background-color: rgba(59, 130, 246, 0.12) !important;
+  color: #0f172a !important;
+  border: 1px solid rgba(59, 130, 246, 0.25) !important;
 }
 
 [data-theme="light"] #connect .bg-accent.bg-opacity-20 {
-  background-color: rgba(14, 165, 233, 0.1) !important;
-  color: #1e293b !important;
-  border: 1px solid rgba(14, 165, 233, 0.2) !important;
+  background-color: rgba(30, 64, 175, 0.12) !important;
+  color: #0f172a !important;
+  border: 1px solid rgba(30, 64, 175, 0.25) !important;
 }
 
 /* Icons in contact buttons */
 [data-theme="light"] #connect .group-hover\\:bg-opacity-50 {
-  background-color: rgba(30, 64, 175, 0.8) !important;
+  background-color: rgba(59, 130, 246, 0.85) !important;
 }
 
 [data-theme="light"] #connect .bg-secondary.bg-opacity-30 {
-  background-color: rgba(30, 64, 175, 0.8) !important;
+  background-color: rgba(59, 130, 246, 0.85) !important;
 }
 
 [data-theme="light"] #connect .bg-accent.bg-opacity-30 {
-  background-color: rgba(18, 147, 239, 0.8) !important;
+  background-color: rgba(30, 64, 175, 0.85) !important;
 }
 
 [data-theme="light"] #connect .group-hover\\:bg-opacity-50 svg {
@@ -266,9 +271,9 @@ html {
 
 /* Respond within */
 [data-theme="light"] #connect .bg-accent.bg-opacity-10 {
-  background-color: rgba(30, 64, 175, 0.1) !important;
+  background-color: rgba(30, 64, 175, 0.08) !important;
   border: 1px solid rgba(30, 64, 175, 0.2) !important;
-  color: #1e293b !important;
+  color: #0f172a !important;
 }
 
 [data-theme="light"] #connect .bg-accent.bg-opacity-10 .text-accent {
@@ -278,15 +283,15 @@ html {
 
 /* Send Message button */
 [data-theme="light"] #connect .bg-gradient-to-r {
-  background: linear-gradient(135deg, #0ea5e9, #1e40af) !important;
+  background: linear-gradient(135deg, #3b82f6, #1e40af) !important;
   color: white !important;
-  box-shadow: 0 4px 16px rgba(30, 64, 175, 0.2) !important;
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.25) !important;
 }
 
 [data-theme="light"] #connect .bg-gradient-to-r:hover {
-  background: linear-gradient(135deg, #0066ff, #0a1851) !important;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
   color: white !important;
-  box-shadow: 0 6px 24px rgba(30, 64, 175, 0.3) !important;
+  box-shadow: 0 6px 24px rgba(59, 130, 246, 0.35) !important;
 }
 
 [data-theme="light"] #connect button[type="submit"] {
@@ -304,15 +309,15 @@ html {
 }
 
 [data-theme="light"] #connect .text-green-500 {
-  color: #16a34a !important;
+  color: #059669 !important;
   font-weight: 500 !important;
 }
 
 /* Footer */
 [data-theme="light"] footer {
-  background: linear-gradient(135deg, #cbd5e1 0%, #94a3b8 100%) !important;
-  border-top: 1px solid rgba(30, 64, 175, 0.2) !important;
-  color: #1e293b !important;
+  background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%) !important;
+  border-top: 1px solid rgba(59, 130, 246, 0.2) !important;
+  color: #0f172a !important;
 }
 
 [data-theme="light"] footer .text-gray-400 {
@@ -340,42 +345,42 @@ html {
 }
 
 [data-theme="light"] .bg-gradient-to-b.from-dark.to-black {
-  background: linear-gradient(to bottom, #e2e8f0, #cbd5e1) !important;
+  background: linear-gradient(to bottom, #f1f5f9, #e2e8f0) !important;
 }
 
 [data-theme="light"] .bg-gradient-to-b.from-black.to-dark {
-  background: linear-gradient(to bottom, #f0f4f8, #e2e8f0) !important;
+  background: linear-gradient(to bottom, #f8fafc, #f1f5f9) !important;
 }
 
 /* Project cards */
 [data-theme="light"] .bg-black.bg-opacity-50.backdrop-blur-sm.border.border-accent.border-opacity-20 {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 244, 248, 0.95) 100%) !important;
-  border: 1px solid rgba(30, 64, 175, 0.15) !important;
-  box-shadow: 0 8px 32px rgba(30, 64, 175, 0.1) !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.95) 100%) !important;
+  border: 1px solid rgba(59, 130, 246, 0.2) !important;
+  box-shadow: 0 8px 32px rgba(59, 130, 246, 0.08) !important;
 }
 
 [data-theme="light"] h1 {
-  color: #1e293b !important;
+  color: #0f172a !important;
 }
 
 [data-theme="light"] h2 {
-  color: #1e293b !important;
+  color: #0f172a !important;
 }
 
 [data-theme="light"] h3 {
-  color: #1e293b !important;
+  color: #0f172a !important;
 }
 
 [data-theme="light"] h4 {
-  color: #1e293b !important;
+  color: #0f172a !important;
 }
 
 [data-theme="light"] h5 {
-  color: #1e293b !important;
+  color: #0f172a !important;
 }
 
 [data-theme="light"] h6 {
-  color: #1e293b !important;
+  color: #0f172a !important;
 }
 
 [data-theme="light"] p {
@@ -384,10 +389,198 @@ html {
 
 [data-theme="light"] .cursor-hover:hover {
   transform: translateY(-2px) !important;
-  box-shadow: 0 8px 32px rgba(30, 64, 175, 0.15) !important;
+  box-shadow: 0 8px 32px rgba(59, 130, 246, 0.15) !important;
 }
 
 /* Loading spinner */
 [data-theme="light"] .animate-spin {
   color: white !important;
+}
+
+/* Custom scrollbar for light mode */
+[data-theme="light"] ::-webkit-scrollbar-track {
+  background: #f1f5f9 !important;
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb {
+  background: #3b82f6 !important;
+  border-radius: 4px !important;
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb:hover {
+  background: #1e40af !important;
+}
+
+/* About section specific */
+[data-theme="light"] #about {
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%) !important;
+}
+
+/* Form inputs in contact section */
+[data-theme="light"] #connect input,
+[data-theme="light"] #connect textarea,
+[data-theme="light"] #connect select {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border-color: rgba(59, 130, 246, 0.3) !important;
+  color: #0f172a !important;
+}
+
+[data-theme="light"] #connect input:focus,
+[data-theme="light"] #connect textarea:focus,
+[data-theme="light"] #connect select:focus {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+}
+
+[data-theme="light"] #connect input::placeholder,
+[data-theme="light"] #connect textarea::placeholder {
+  color: #64748b !important;
+}
+
+/* Success and error messages */
+[data-theme="light"] #connect .bg-green-900.bg-opacity-50 {
+  background: rgba(34, 197, 94, 0.1) !important;
+  border-color: #22c55e !important;
+}
+
+[data-theme="light"] #connect .text-green-400 {
+  color: #16a34a !important;
+}
+
+[data-theme="light"] #connect .bg-red-900.bg-opacity-50 {
+  background: rgba(239, 68, 68, 0.1) !important;
+  border-color: #ef4444 !important;
+}
+
+[data-theme="light"] #connect .text-red-400 {
+  color: #dc2626 !important;
+}
+
+/* Tab buttons in about section */
+[data-theme="light"] #about button {
+  color: #64748b !important;
+}
+
+[data-theme="light"] #about button.text-accent {
+  color: #1e40af !important;
+  border-color: #1e40af !important;
+}
+
+/* Skills progress bars */
+[data-theme="light"] #about .bg-gray-800 {
+  background: #e2e8f0 !important;
+}
+
+[data-theme="light"] #about .bg-gradient-to-r.from-secondary.to-accent {
+  background: linear-gradient(to right, #3b82f6, #1e40af) !important;
+}
+
+/* Skills progress bars */
+[data-theme="light"] #about .bg-gray-800 {
+  background: #e2e8f0 !important;
+}
+
+[data-theme="light"] #about .bg-gradient-to-r.from-secondary.to-accent {
+  background: linear-gradient(to right, #60a5fa, #3b82f6) !important;
+}
+
+/* Skills progress bars with more specific selector */
+[data-theme="light"] .bg-gradient-to-r.from-secondary.to-accent {
+  background: linear-gradient(to right, #60a5fa, #3b82f6) !important;
+}
+
+/* Timeline elements */
+[data-theme="light"] #about .border-l.border-accent {
+  border-color: #3b82f6 !important;
+}
+
+[data-theme="light"] #about .bg-accent {
+  background-color: #3b82f6 !important;
+}
+
+/* Tags in projects and about sections */
+[data-theme="light"] .bg-accent.bg-opacity-20 {
+  background-color: rgba(30, 64, 175, 0.1) !important;
+  color: #1e40af !important;
+}
+
+/* Hero section improvements */
+[data-theme="light"] .bg-gradient-to-br.from-secondary\\/5.to-accent\\/5 {
+  background: linear-gradient(to bottom right, rgba(59, 130, 246, 0.05), rgba(30, 64, 175, 0.05)) !important;
+}
+
+/* Mobile menu */
+[data-theme="light"] .bg-black.bg-opacity-95.backdrop-blur-md {
+  background: rgba(30, 58, 138, 0.95) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(59, 130, 246, 0.2) !important;
+}
+
+/* Mobile menu text */
+[data-theme="light"] .bg-black.bg-opacity-95.backdrop-blur-md a {
+  color: white !important;
+}
+
+[data-theme="light"] .bg-black.bg-opacity-95.backdrop-blur-md a:hover {
+  color: #93c5fd !important;
+}
+
+/* Hamburger button for light mode */
+[data-theme="light"] .md\\:hidden button span {
+  background-color: #1e293b !important;
+}
+
+/* Header styling for light mode */
+[data-theme="light"] nav {
+  background: rgba(30, 58, 138, 0.9) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border-bottom: 1px solid rgba(59, 130, 246, 0.3) !important;
+}
+
+[data-theme="light"] nav .text-white {
+  color: white !important;
+}
+
+[data-theme="light"] nav .text-accent {
+  color: #60a5fa !important;
+}
+
+[data-theme="light"] nav .hover\\:text-accent:hover {
+  color: #93c5fd !important;
+}
+
+/* Hover color changes for existing hover elements only */
+
+/* Navigation links hover */
+[data-theme="light"] nav a:hover {
+  color: #93c5fd !important;
+  text-shadow: 0 0 8px rgba(147, 197, 253, 0.5) !important;
+}
+
+/* Footer social icons hover */
+[data-theme="light"] footer .hover\\:bg-accent:hover {
+  background-color: #3b82f6 !important;
+  color: white !important;
+}
+
+/* Contact action buttons hover */
+[data-theme="light"] #connect .bg-secondary.bg-opacity-20:hover {
+  background-color: rgba(59, 130, 246, 0.2) !important;
+  color: #0f172a !important;
+}
+
+[data-theme="light"] #connect .bg-accent.bg-opacity-20:hover {
+  background-color: rgba(30, 64, 175, 0.2) !important;
+  color: #0f172a !important;
+}
+
+/* About section links hover */
+[data-theme="light"] #about .text-accent:hover {
+  color: #60a5fa !important;
+}
+
+/* Tab buttons hover */
+[data-theme="light"] #about button:hover {
+  color: #3b82f6 !important;
 }
